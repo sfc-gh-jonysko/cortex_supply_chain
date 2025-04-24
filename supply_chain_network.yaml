@@ -1,0 +1,1924 @@
+name: supply_chain_network
+tables:
+  - name: MFG_PLANT
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: MFG_PLANT
+    dimensions:
+      - name: MFG_PLANT_ID
+        expr: MFG_PLANT_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the Manufacturing Plant
+        sample_values:
+          - '115'
+          - '105'
+          - '102'
+        synonyms:
+          - plant_id
+          - mfg_plant
+          - manufacturing_plant
+      - name: MFG_PLANT_NAME
+        expr: MFG_PLANT_NAME
+        data_type: VARCHAR(255)
+        description: Name of the Manufacturing Plant
+        sample_values:
+          - Hood, Evans and Johnson CMF - Khanborough
+          - Wade and Sons CMF - Anthonymouth
+          - Morton LLC CMF - Lake Melissa
+        synonyms:
+          - plant_name
+      - name: ADDRESS
+        expr: ADDRESS
+        data_type: VARCHAR(255)
+        description: Street address of the facility
+        sample_values:
+          - 279 Amanda Prairie
+          - 744 Brittany Inlet Apt. 220
+          - 1385 Gomez Skyway
+        synonyms:
+          - street_address
+          - location
+          - facility_location
+          - mailing_address
+          - physical_address
+          - site_address
+      - name: CITY
+        expr: CITY
+        data_type: VARCHAR(100)
+        description: City of the facility
+        sample_values:
+          - Khanborough
+          - Anthonymouth
+          - Lake Melissa
+        synonyms:
+          - town
+          - municipality
+          - metropolis
+          - urban_area
+          - metropolitan_area
+          - locale
+          - location
+          - settlement
+      - name: STATE
+        expr: STATE
+        data_type: VARCHAR(50)
+        description: State/Province of the facility
+        sample_values:
+          - HI
+          - VA
+          - MA
+        synonyms:
+          - province
+          - region
+          - territory
+          - county
+          - prefecture
+          - administrative_area
+          - geographic_area
+          - locality
+      - name: COUNTRY
+        expr: COUNTRY
+        data_type: VARCHAR(50)
+        description: Country of the facility
+        sample_values:
+          - USA
+        synonyms:
+          - nation
+          - land
+          - territory
+          - state
+          - region
+          - geographical_area
+          - homeland
+          - nationality
+      - name: ZIP_CODE
+        expr: ZIP_CODE
+        data_type: VARCHAR(20)
+        description: Postal code of the facility
+        sample_values:
+          - '92244'
+          - '82224'
+          - '15263'
+        synonyms:
+          - postal_code
+          - postcode
+          - zip
+          - postal
+          - mailing_code
+          - geographic_code
+      - name: IS_ACTIVE
+        expr: IS_ACTIVE
+        data_type: BOOLEAN
+        description: Indicates if the facility is currently active
+        sample_values:
+          - 'TRUE'
+        synonyms:
+          - active_status
+          - status
+          - is_current
+          - is_enabled
+          - is_operational
+          - is_open
+          - is_running
+          - is_valid
+          - current_status
+      - name: BUSINESS_LINE
+        expr: BUSINESS_LINE
+        data_type: VARCHAR(10)
+        description: business line (AERO, IA, BA, ESS)
+        sample_values:
+          - AERO
+          - ESS
+          - BA
+          - IA
+        synonyms:
+          - division
+          - department
+          - business_unit
+          - product_line
+          - organization_unit
+          - company_segment
+          - industry_sector
+    facts:
+      - name: LATITUDE
+        expr: LATITUDE
+        data_type: NUMBER(10,6)
+        description: Latitude coordinate of the facility
+        sample_values:
+          - '63.420883'
+          - '-4.717164'
+          - '-27.314719'
+        synonyms:
+          - latitude_coordinate
+          - geographic_latitude
+          - lat
+          - latitude_value
+          - latitude_position
+      - name: LONGITUDE
+        expr: LONGITUDE
+        data_type: NUMBER(11,6)
+        description: Longitude coordinate of the facility
+        sample_values:
+          - '-77.774331'
+          - '-166.240366'
+          - '156.973007'
+        synonyms:
+          - east_west_coordinate
+          - easting
+          - geographic_longitude
+          - longitudinal_coordinate
+          - meridian_coordinate
+    primary_key:
+      columns:
+        - MFG_PLANT_ID
+  - name: COMPONENT
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: COMPONENT
+    dimensions:
+      - name: COMPONENT_ID
+        expr: COMPONENT_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the component (UUID)
+        sample_values:
+          - 4e0607d9-4d05-4e7e-9dfb-6e6fd72ed8ae
+          - 98d78cef-8a33-43f7-8387-76e4b168965f
+          - 7550ffcc-97fb-47f9-a7ca-32d71d9467cd
+        synonyms:
+          - component_uuid
+          - unique_component_identifier
+          - component_key
+          - part_id
+          - component_reference
+          - unique_part_identifier
+      - name: COMPONENT_NAME
+        expr: COMPONENT_NAME
+        data_type: VARCHAR(255)
+        description: Name of the component
+        sample_values:
+          - Lighting Controller
+          - PLC Module
+          - Flow Meter
+        synonyms:
+          - component_title
+          - part_name
+          - module_name
+          - assembly_name
+          - unit_name
+          - element_name
+          - item_name
+      - name: COMPONENT_DESCRIPTION
+        expr: COMPONENT_DESCRIPTION
+        data_type: VARCHAR(1024)
+        description: Description of the component
+        sample_values:
+          - Year point keep hear science.
+          - Pressure personal growth perform in different red wonder.
+          - Risk suggest cost body leader prepare time speak.
+        synonyms:
+          - component_info
+          - component_details
+          - component_summary
+          - component_notes
+          - component_commentary
+      - name: BILL_OF_MATERIALS_ID
+        expr: BILL_OF_MATERIALS_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing a bill_of_materials table (if applicable)
+        sample_values:
+          - 96e8aff4-b341-4d84-97b4-7d970655a459
+          - 4c81fda5-ab1f-4954-ab35-7c5185a440ae
+          - 66da71ec-1ba9-43b6-aee0-5814f6907bec
+        synonyms:
+          - bom_id
+          - bill_of_materials_reference
+          - material_id
+          - assembly_id
+          - component_material_reference
+          - bom_reference_id
+      - name: BUSINESS_LINE
+        expr: BUSINESS_LINE
+        data_type: VARCHAR(10)
+        description: business line (AERO, IA, BA, ESS)
+        sample_values:
+          - BA
+          - IA
+          - AERO
+        synonyms:
+          - division
+          - department
+          - business_unit
+          - product_line
+          - organization_unit
+          - company_segment
+          - market_segment
+    primary_key:
+      columns:
+        - COMPONENT_ID
+  - name: CUSTOMER
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: CUSTOMER
+    dimensions:
+      - name: CUSTOMER_ID
+        expr: CUSTOMER_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the customer (UUID)
+        sample_values:
+          - d3f848f5-6402-4ee3-be72-ed086a049a8b
+          - 2ab2299f-5616-4544-a790-69c36ec29c5f
+          - 0cc76642-95d3-45de-8eae-70dfd32faaa8
+        synonyms:
+          - customer_uuid
+          - unique_customer_identifier
+          - client_id
+          - account_id
+          - customer_key
+      - name: CUSTOMER_NAME
+        expr: CUSTOMER_NAME
+        data_type: VARCHAR(255)
+        description: Name of the customer
+        sample_values:
+          - Coleman Group
+          - Chavez PLC
+          - Moore-Mendoza
+        synonyms:
+          - customer_title
+          - company_name
+          - client_name
+          - account_name
+          - organization_name
+          - business_name
+          - entity_name
+          - client_title
+      - name: ADDRESS
+        expr: ADDRESS
+        data_type: VARCHAR(255)
+        description: Street address of the customer
+        sample_values:
+          - 50798 Amanda Ridge Suite 314
+          - 384 Samuel Crossing Suite 535
+          - 2360 Kyle Hill
+        synonyms:
+          - street_address
+          - location
+          - residence
+          - mailing_address
+          - physical_address
+          - customer_location
+          - geographical_address
+      - name: CITY
+        expr: CITY
+        data_type: VARCHAR(100)
+        description: City of the customer
+        sample_values:
+          - Port Brittanyville
+          - Josephshire
+          - New Emilyton
+        synonyms:
+          - town
+          - municipality
+          - metropolis
+          - urban_area
+          - city_name
+          - location
+          - urban_center
+          - metropolitan_area
+      - name: STATE
+        expr: STATE
+        data_type: VARCHAR(50)
+        description: State/Province of the customer
+        sample_values:
+          - OK
+          - VI
+          - AR
+        synonyms:
+          - province
+          - region
+          - territory
+          - county
+          - prefecture
+          - administrative_area
+          - geographic_area
+      - name: COUNTRY
+        expr: COUNTRY
+        data_type: VARCHAR(50)
+        description: Country of the customer
+        sample_values:
+          - USA
+        synonyms:
+          - nation
+          - land
+          - territory
+          - state
+          - region
+          - nationality
+          - homeland
+          - territory_name
+      - name: ZIP_CODE
+        expr: ZIP_CODE
+        data_type: VARCHAR(20)
+        description: Postal code of the customer
+        sample_values:
+          - '07367'
+          - '96557'
+          - '32615'
+        synonyms:
+          - postal_code
+          - postcode
+          - zip
+          - postal
+          - post_code
+          - zip_postal_code
+      - name: CONTACT_PERSON_ID
+        expr: CONTACT_PERSON_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing a contacts table (if applicable)
+        sample_values:
+          - dbc6bac5-0ac1-4401-ae19-324ad7e4a2c6
+          - 87e1a327-0138-4d82-abd3-63614f00ed72
+          - b2f2f8fa-132e-412f-9cf1-91896219374a
+        synonyms:
+          - key_contact_id
+          - contact_reference_id
+          - person_of_contact_id
+          - contact_person_reference
+          - account_manager_id
+          - point_of_contact_id
+      - name: INDUSTRY
+        expr: INDUSTRY
+        data_type: VARCHAR(100)
+        description: Industry of the customer
+        sample_values:
+          - Refinery
+          - Commercial Real Estate
+          - Government Building
+        synonyms:
+          - sector
+          - market
+          - field
+          - business_sector
+          - industry_type
+          - business_category
+          - market_segment
+          - economic_sector
+      - name: BUSINESS_LINE
+        expr: BUSINESS_LINE
+        data_type: VARCHAR(10)
+        description: business line (AERO, IA, BA, ESS)
+        sample_values:
+          - IA
+          - BA
+          - AERO
+        synonyms:
+          - division
+          - department
+          - business_unit
+          - product_line
+          - segment
+          - category
+          - classification
+    primary_key:
+      columns:
+        - CUSTOMER_ID
+  - name: DISTRIBUTOR
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: DISTRIBUTOR
+    dimensions:
+      - name: DISTRIBUTOR_ID
+        expr: DISTRIBUTOR_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the distributor (UUID)
+        sample_values:
+          - 6c8f7a85-3b46-47c0-8239-e6df37ce7232
+          - 3d35d65c-21c7-496e-991b-6325f11e9aec
+          - c4116d04-6219-4e92-8d18-b8fba25ef526
+        synonyms:
+          - distributor_uuid
+          - supplier_id
+          - vendor_id
+          - provider_id
+          - partner_id
+      - name: DISTRIBUTOR_NAME
+        expr: DISTRIBUTOR_NAME
+        data_type: VARCHAR(255)
+        description: Name of the distributor
+        sample_values:
+          - Rasmussen and Sons Distribution
+          - Williams and Sons Distribution
+          - Alvarado-Castillo Distribution
+        synonyms:
+          - distributor_title
+          - supplier_name
+          - vendor_name
+          - provider_name
+          - company_name
+          - organization_name
+          - business_name
+      - name: ADDRESS
+        expr: ADDRESS
+        data_type: VARCHAR(255)
+        description: Street address of the distributor
+        sample_values:
+          - 82939 Felicia Parkway Suite 103
+          - 20733 Smith Grove
+          - 0283 Mcdowell Lodge
+        synonyms:
+          - street_address
+          - location
+          - distributor_location
+          - physical_address
+          - mailing_address
+          - distributor_address
+          - geographical_address
+      - name: CITY
+        expr: CITY
+        data_type: VARCHAR(100)
+        description: City of the distributor
+        sample_values:
+          - Stevenmouth
+          - Perezbury
+          - East James
+        synonyms:
+          - town
+          - municipality
+          - metropolis
+          - urban_area
+          - locality
+          - settlement
+      - name: STATE
+        expr: STATE
+        data_type: VARCHAR(50)
+        description: State/Province of the distributor
+        sample_values:
+          - TX
+          - OH
+          - FM
+        synonyms:
+          - province
+          - region
+          - territory
+          - county
+          - prefecture
+          - administrative_area
+          - geographic_area
+      - name: COUNTRY
+        expr: COUNTRY
+        data_type: VARCHAR(50)
+        description: Country of the distributor
+        sample_values:
+          - USA
+        synonyms:
+          - nation
+          - land
+          - territory
+          - state
+          - homeland
+          - nationality
+          - region
+          - area
+          - locale
+      - name: ZIP_CODE
+        expr: ZIP_CODE
+        data_type: VARCHAR(20)
+        description: Postal code of the distributor
+        sample_values:
+          - '59205'
+          - '50398'
+          - '27244'
+        synonyms:
+          - postal_code
+          - postcode
+          - zip
+          - post_code
+          - mailing_code
+      - name: CONTACT_PERSON_ID
+        expr: CONTACT_PERSON_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing a contacts table (if applicable)
+        sample_values:
+          - ebb42bb8-91dc-4a26-81ec-b375e9f8abdb
+          - d76db3c7-8623-428d-9ddd-886174c191e3
+          - 209cd92a-8137-4f80-bc4e-aa5ee07a6bea
+        synonyms:
+          - key_contact_id
+          - contact_reference_id
+          - person_of_contact_id
+          - account_manager_id
+          - point_of_contact_id
+      - name: REGION_SERVED
+        expr: REGION_SERVED
+        data_type: VARCHAR(100)
+        description: Geographic region served by the distributor
+        sample_values:
+          - Wyoming
+          - Indiana
+          - Michigan
+        synonyms:
+          - geographic_area
+          - territory_covered
+          - area_of_operation
+          - service_region
+          - distribution_area
+          - market_region
+          - served_territory
+          - coverage_area
+      - name: BUSINESS_LINE
+        expr: BUSINESS_LINE
+        data_type: VARCHAR(10)
+        description: business line (AERO, IA, BA, ESS)
+        sample_values:
+          - BA
+          - IA
+          - AERO
+        synonyms:
+          - division
+          - department
+          - business_unit
+          - product_line
+          - segment
+          - category
+          - classification
+    primary_key:
+      columns:
+        - DISTRIBUTOR_ID
+  - name: DISTRIBUTOR_INVENTORY
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: DISTRIBUTOR_INVENTORY
+    dimensions:
+      - name: DISTRIBUTOR_ID
+        expr: DISTRIBUTOR_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing distributor
+        sample_values:
+          - 6c8f7a85-3b46-47c0-8239-e6df37ce7232
+          - 3d35d65c-21c7-496e-991b-6325f11e9aec
+          - c4116d04-6219-4e92-8d18-b8fba25ef526
+        synonyms:
+          - distributor_key
+          - supplier_id
+          - vendor_id
+          - provider_id
+          - logistics_partner_id
+          - warehouse_id
+      - name: PRODUCT_ID
+        expr: PRODUCT_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing product
+        sample_values:
+          - f81cb962-fcb4-401e-8b2e-32d848b6ce78
+          - 1baf6986-6381-4e38-8aa5-e2083f7581c3
+          - ff8bbcb6-3640-45df-ae4e-3f75bf8093b8
+        synonyms:
+          - product_code
+          - item_id
+          - product_key
+          - item_number
+          - product_reference
+    time_dimensions:
+      - name: LAST_UPDATED_TIMESTAMP
+        expr: LAST_UPDATED_TIMESTAMP
+        data_type: TIMESTAMP_NTZ(9)
+        description: Timestamp of the last inventory update
+        sample_values:
+          - '2025-02-15T09:27:34.7863Z'
+          - '2025-02-15T09:27:34.786324Z'
+          - '2025-02-06T09:27:34.786332Z'
+        synonyms:
+          - last_updated_date
+          - last_inventory_update
+          - inventory_last_updated
+          - last_sync_timestamp
+          - last_refresh_date
+          - last_update_time
+    facts:
+      - name: QUANTITY_ON_HAND
+        expr: QUANTITY_ON_HAND
+        data_type: NUMBER(38,0)
+        description: Current quantity of the product on hand at the distributor
+        sample_values:
+          - '155'
+          - '26'
+          - '243'
+        synonyms:
+          - current_stock
+          - stock_level
+          - inventory_level
+          - quantity_in_stock
+          - available_quantity
+          - on_hand_quantity
+          - stock_on_hand
+      - name: REORDER_POINT
+        expr: REORDER_POINT
+        data_type: NUMBER(38,0)
+        description: Inventory level at which the distributor should reorder
+        sample_values:
+          - '35'
+          - '39'
+          - '23'
+        synonyms:
+          - reorder_level
+          - reorder_threshold
+          - inventory_trigger
+          - restock_point
+          - replenishment_level
+          - order_point
+      - name: SAFETY_STOCK_LEVEL
+        expr: SAFETY_STOCK_LEVEL
+        data_type: NUMBER(38,0)
+        description: Minimum inventory level to maintain at the distributor
+        sample_values:
+          - '18'
+          - '6'
+          - '2'
+        synonyms:
+          - minimum_inventory_level
+          - buffer_stock
+          - safety_inventory
+          - minimum_stock_level
+          - reserve_stock_level
+          - inventory_buffer
+    primary_key:
+      columns:
+        - DISTRIBUTOR_ID
+        - PRODUCT_ID
+  - name: FAT_FACILITY
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: FAT_FACILITY
+    dimensions:
+      - name: FAT_FACILITY_ID
+        expr: FAT_FACILITY_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the FAT facility (UUID)
+        sample_values:
+          - 054768d1-416a-4eb2-a7db-b3394d10e114
+          - e199d661-e3ba-469e-8dff-11b1ec0f5e74
+          - d81cf7e0-3c98-40ca-ad0f-d3cc666ba756
+        synonyms:
+          - facility_uuid
+          - unique_facility_identifier
+          - fat_facility_uuid
+          - facility_id
+          - facility_key
+      - name: FACILITY_NAME
+        expr: FACILITY_NAME
+        data_type: VARCHAR(255)
+        description: Name of the FAT facility
+        sample_values:
+          - Sharp Inc FAT - Angeltown
+          - Hernandez, Peck and Hall FAT - Leslieton
+          - Matthews-Evans FAT - New Andrew
+        synonyms:
+          - facility_title
+          - site_name
+          - location_name
+          - building_name
+          - establishment_name
+          - institution_name
+          - organization_name
+          - company_name
+      - name: ADDRESS
+        expr: ADDRESS
+        data_type: VARCHAR(255)
+        description: Street address of the facility
+        sample_values:
+          - 8014 Bryant Flat Suite 533
+          - 737 Jones Ville Apt. 579
+          - 0203 Mendoza Villages
+        synonyms:
+          - street_address
+          - location
+          - facility_location
+          - physical_address
+          - mailing_address
+          - site_address
+      - name: CITY
+        expr: CITY
+        data_type: VARCHAR(100)
+        description: City of the facility
+        sample_values:
+          - Angeltown
+          - Leslieton
+          - New Andrew
+        synonyms:
+          - town
+          - municipality
+          - metropolis
+          - urban_area
+          - metropolitan_area
+          - locale
+          - location
+          - settlement
+      - name: STATE
+        expr: STATE
+        data_type: VARCHAR(50)
+        description: State/Province of the facility
+        sample_values:
+          - MS
+          - AS
+          - NC
+        synonyms:
+          - province
+          - region
+          - territory
+          - county
+          - prefecture
+          - administrative_division
+          - geographic_area
+          - locality
+      - name: COUNTRY
+        expr: COUNTRY
+        data_type: VARCHAR(50)
+        description: Country of the facility
+        sample_values:
+          - USA
+        synonyms:
+          - nation
+          - land
+          - territory
+          - state
+          - region
+          - nationality
+          - homeland
+          - territory_name
+      - name: ZIP_CODE
+        expr: ZIP_CODE
+        data_type: VARCHAR(20)
+        description: Postal code of the facility
+        sample_values:
+          - '50396'
+          - '06694'
+          - '99716'
+        synonyms:
+          - postal_code
+          - postcode
+          - zip
+          - post_code
+          - mailing_code
+      - name: IS_ACTIVE
+        expr: IS_ACTIVE
+        data_type: BOOLEAN
+        description: Indicates if the facility is currently active
+        sample_values:
+          - 'TRUE'
+        synonyms:
+          - active_status
+          - status
+          - is_enabled
+          - is_current
+          - is_operational
+          - is_open
+          - is_running
+      - name: BUSINESS_LINE
+        expr: BUSINESS_LINE
+        data_type: VARCHAR(10)
+        description: business line (AERO, IA, BA, ESS)
+        sample_values:
+          - BA
+          - IA
+          - ESS
+        synonyms:
+          - division
+          - department
+          - business_unit
+          - product_line
+          - organization_unit
+          - company_segment
+          - industry_sector
+    facts:
+      - name: LATITUDE
+        expr: LATITUDE
+        data_type: NUMBER(10,6)
+        description: Latitude coordinate of the facility
+        sample_values:
+          - '-50.323293'
+          - '-85.158076'
+          - '-62.266526'
+        synonyms:
+          - lat
+          - geographic_latitude
+          - latitude_coordinate
+          - lat_value
+          - geographic_coordinate_lat
+      - name: LONGITUDE
+        expr: LONGITUDE
+        data_type: NUMBER(11,6)
+        description: Longitude coordinate of the facility
+        sample_values:
+          - '-28.014128'
+          - '-140.971797'
+          - '-63.706128'
+        synonyms:
+          - east_west_coordinate
+          - easting
+          - geographic_longitude
+          - longitudinal_coordinate
+          - meridian_coordinate
+    primary_key:
+      columns:
+        - FAT_FACILITY_ID
+  - name: FAT_INVENTORY
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: FAT_INVENTORY
+    dimensions:
+      - name: FAT_FACILITY_ID
+        expr: FAT_FACILITY_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing fat_facility
+        sample_values:
+          - 054768d1-416a-4eb2-a7db-b3394d10e114
+          - e199d661-e3ba-469e-8dff-11b1ec0f5e74
+          - d81cf7e0-3c98-40ca-ad0f-d3cc666ba756
+        synonyms:
+          - facility_id
+          - warehouse_id
+          - storage_location_id
+          - inventory_location_id
+          - fat_facility_reference
+          - facility_reference_id
+      - name: COMPONENT_ID
+        expr: COMPONENT_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing component (if applicable, otherwise NULL if product_id is populated)
+        sample_values:
+          - 3ab579f2-cba6-4937-9c77-a3725b39b7ab
+          - ab429979-6cd1-4e00-97d8-75a43649b53e
+          - 479a601f-3617-4c3a-b1e0-53e561fdfe8a
+        synonyms:
+          - component_reference
+          - part_id
+          - assembly_id
+          - module_id
+          - subassembly_id
+          - component_key
+      - name: PRODUCT_ID
+        expr: PRODUCT_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing product (if applicable, otherwise NULL if component_id is populated)
+        sample_values:
+          - ff8bbcb6-3640-45df-ae4e-3f75bf8093b8
+          - 0d9bdd60-139e-4189-969b-d07efbbc06e6
+        synonyms:
+          - product_key
+          - item_id
+          - product_code
+          - item_code
+          - product_reference
+          - sku
+          - stock_id
+    time_dimensions:
+      - name: LAST_UPDATED_TIMESTAMP
+        expr: LAST_UPDATED_TIMESTAMP
+        data_type: TIMESTAMP_NTZ(9)
+        description: Timestamp of the last inventory update
+        sample_values:
+          - '2025-02-15T09:27:34.73544Z'
+          - '2025-02-27T09:27:34.735456Z'
+          - '2025-02-09T09:27:34.735471Z'
+        synonyms:
+          - last_updated
+          - last_inventory_update
+          - inventory_last_updated
+          - last_sync_timestamp
+          - last_refresh_date
+          - last_update_time
+    facts:
+      - name: QUANTITY_ON_HAND
+        expr: QUANTITY_ON_HAND
+        data_type: NUMBER(38,0)
+        description: Current quantity of the component/product on hand
+        sample_values:
+          - '1626'
+          - '849'
+          - '659'
+        synonyms:
+          - current_stock
+          - inventory_level
+          - stock_on_hand
+          - available_quantity
+          - quantity_in_stock
+          - on_hand_quantity
+      - name: QUANTITY_ON_ORDER
+        expr: QUANTITY_ON_ORDER
+        data_type: NUMBER(38,0)
+        description: Quantity of the component/product currently on order
+        sample_values:
+          - '711'
+          - '204'
+          - '694'
+        synonyms:
+          - ordered_quantity
+          - quantity_ordered
+          - items_on_order
+          - pending_arrivals
+          - stock_on_order
+          - backordered_quantity
+      - name: REORDER_POINT
+        expr: REORDER_POINT
+        data_type: NUMBER(38,0)
+        description: Inventory level at which a reorder should be placed
+        sample_values:
+          - '14'
+          - '90'
+          - '24'
+        synonyms:
+          - reorder_level
+          - reorder_threshold
+          - restock_point
+          - inventory_trigger
+          - replenishment_point
+          - order_point
+      - name: SAFETY_STOCK_LEVEL
+        expr: SAFETY_STOCK_LEVEL
+        data_type: NUMBER(38,0)
+        description: Minimum inventory level to maintain
+        sample_values:
+          - '23'
+          - '17'
+          - '48'
+        synonyms:
+          - minimum_inventory_level
+          - buffer_stock
+          - safety_inventory
+          - minimum_stock_level
+          - inventory_buffer
+    primary_key:
+      columns:
+        - FAT_FACILITY_ID
+        - COMPONENT_ID
+        - PRODUCT_ID
+  - name: ORDERS
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: ORDERS
+    dimensions:
+      - name: ORDER_ID
+        expr: ORDER_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the order (UUID)
+        sample_values:
+          - 6b55248b-2148-4352-aca4-932e9a5ad74a
+          - 071dbd7c-297f-4d31-bf11-0052e5a7ce7c
+          - 133a0acd-ad6a-40bc-9a9f-12134c3b84db
+        synonyms:
+          - order_uuid
+          - unique_order_identifier
+          - order_key
+          - purchase_id
+          - transaction_id
+          - order_number
+      - name: CUSTOMER_ID
+        expr: CUSTOMER_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing the customer (if applicable)
+        sample_values:
+          - 28635edf-c8eb-46ea-bdb7-f1a8657fe5f7
+          - f5969e89-2771-4828-89bd-8a7fc56929e2
+        synonyms:
+          - client_id
+          - buyer_id
+          - purchaser_id
+          - account_id
+          - user_id
+      - name: DISTRIBUTOR_ID
+        expr: DISTRIBUTOR_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing the distributor (if applicable)
+        sample_values:
+          - fb5b0b46-99a3-4ee2-b9df-9bd8c572226b
+          - 193cfe2d-2c95-4fc5-b254-e8bf59f5113e
+        synonyms:
+          - supplier_id
+          - vendor_id
+          - provider_id
+          - partner_id
+          - logistics_partner_id
+          - shipping_partner_id
+      - name: PRODUCT_ID
+        expr: PRODUCT_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing the product
+        sample_values:
+          - aff6312b-9d3c-4531-9c3a-b542894e5905
+          - 56399415-2ab3-4ef8-9f19-a48990c0b1ed
+          - 3f8265a5-c27a-4f4e-a88f-d4fca449b0b6
+        synonyms:
+          - product_key
+          - item_id
+          - product_code
+          - sku
+          - product_reference
+          - item_reference
+      - name: ORDER_STATUS
+        expr: ORDER_STATUS
+        data_type: VARCHAR(50)
+        description: Status of the order (e.g., Placed, Shipped, Delivered, Cancelled)
+        sample_values:
+          - Cancelled
+          - Placed
+          - Delivered
+        synonyms:
+          - order_state
+          - status
+          - order_condition
+          - shipment_status
+          - fulfillment_status
+          - delivery_status
+          - order_progress
+    time_dimensions:
+      - name: ORDER_DATE
+        expr: ORDER_DATE
+        data_type: TIMESTAMP_NTZ(9)
+        description: Date and time the order was placed
+        sample_values:
+          - '2025-01-05T23:00:04.036579Z'
+          - '2025-01-09T22:24:38.055559Z'
+          - '2025-01-24T09:43:57.477596Z'
+        synonyms:
+          - order_timestamp
+          - order_placement_date
+          - order_creation_date
+          - order_submission_date
+          - order_initiation_date
+    facts:
+      - name: QUANTITY
+        expr: QUANTITY
+        data_type: NUMBER(38,0)
+        description: Quantity of the product ordered
+        sample_values:
+          - '59'
+          - '49'
+          - '91'
+        synonyms:
+          - amount
+          - count
+          - number_ordered
+          - product_count
+          - ordered_amount
+          - item_quantity
+      - name: UNIT_PRICE
+        expr: UNIT_PRICE
+        data_type: NUMBER(10,2)
+        description: Price per unit at the time of order
+        sample_values:
+          - '6833.29'
+          - '3227.44'
+          - '5407.59'
+        synonyms:
+          - price_per_unit
+          - unit_cost
+          - cost_per_item
+          - item_price
+          - price_per_item
+          - unit_rate
+      - name: TOTAL_PRICE
+        expr: TOTAL_PRICE
+        data_type: NUMBER(10,2)
+        description: Total price of the order line
+        sample_values:
+          - '403164.11'
+          - '158144.56'
+          - '54075.90'
+        synonyms:
+          - total_cost
+          - order_total
+          - total_amount
+          - total_value
+          - total_order_value
+          - total_charge
+          - grand_total
+    primary_key:
+      columns:
+        - DISTRIBUTOR_ID
+        - ORDER_ID
+        - PRODUCT_ID
+  - name: PRODUCT
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: PRODUCT
+    dimensions:
+      - name: PRODUCT_ID
+        expr: PRODUCT_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the product (UUID)
+        sample_values:
+          - e56703a8-286e-4bc6-b78f-7d448b6f6817
+          - 05cdd4a5-c755-4ed6-90ab-5ea9107fd5cb
+          - 4c41253a-559a-4cb3-957d-6a064c9d1262
+        synonyms:
+          - product_key
+          - product_uuid
+          - unique_product_identifier
+          - product_code
+          - product_number
+          - item_id
+      - name: PRODUCT_NAME
+        expr: PRODUCT_NAME
+        data_type: VARCHAR(255)
+        description: Name of the product
+        sample_values:
+          - Engine Monitoring System
+          - Renewable Energy System
+          - HVAC Control System
+        synonyms:
+          - product_title
+          - item_name
+          - product_label
+          - product_heading
+          - item_description_title
+          - product_header
+      - name: PRODUCT_DESCRIPTION
+        expr: PRODUCT_DESCRIPTION
+        data_type: VARCHAR(1024)
+        description: Description of the product
+        sample_values:
+          - Feel need image.
+          - Fish little page wife change.
+          - Action different main book make us.
+        synonyms:
+          - product_info
+          - item_description
+          - product_details
+          - product_summary
+          - item_info
+          - product_overview
+      - name: PRODUCT_CATEGORY
+        expr: PRODUCT_CATEGORY
+        data_type: VARCHAR(100)
+        description: Category of the product
+        sample_values:
+          - by
+          - friend
+          - eye
+        synonyms:
+          - product_type
+          - product_group
+          - category_name
+          - product_classification
+          - product_segment
+          - product_family
+      - name: BUSINESS_LINE
+        expr: BUSINESS_LINE
+        data_type: VARCHAR(10)
+        description: business line (AERO, IA, BA, ESS)
+        sample_values:
+          - AERO
+          - ESS
+          - BA
+        synonyms:
+          - division
+          - department
+          - business_unit
+          - product_line
+          - company_segment
+          - organization_unit
+    facts:
+      - name: UNIT_PRICE
+        expr: UNIT_PRICE
+        data_type: NUMBER(10,2)
+        description: Price per unit of the product
+        sample_values:
+          - '8015.50'
+          - '120.38'
+          - '1749.63'
+        synonyms:
+          - price_per_unit
+          - cost_per_item
+          - unit_cost
+          - product_price
+          - item_price
+          - price_per_item
+          - cost_per_unit
+    primary_key:
+      columns:
+        - PRODUCT_ID
+  - name: SHIPMENT
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: SHIPMENT
+    dimensions:
+      - name: SHIPMENT_ID
+        expr: SHIPMENT_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the shipment (UUID)
+        sample_values:
+          - 620133e9-0887-4c92-9654-c720fb0e3209
+          - 91206911-1e87-4221-9b0a-16f2ffb3f5dd
+          - 82a90492-d614-4477-aecd-6c4e4f114d07
+        synonyms:
+          - shipment_uuid
+          - unique_shipment_identifier
+          - shipment_key
+          - shipment_reference
+          - shipment_code
+      - name: ORIGIN_FACILITY_ID
+        expr: ORIGIN_FACILITY_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing the originating facility (CMF or FAT)
+        sample_values:
+          - ec03a95b-5607-4d35-a2d4-8da81773e20b
+          - 33863456-93b1-46cc-9abb-2bae01c21663
+          - 16cb7d81-3e72-4329-b650-6d9712b3581c
+        synonyms:
+          - origin_facility_uuid
+          - originating_facility_id
+          - source_facility_id
+          - shipping_facility_id
+          - starting_facility_id
+          - initial_facility_id
+      - name: DESTINATION_FACILITY_ID
+        expr: DESTINATION_FACILITY_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing the destination facility (FAT, Distributor, or Customer)
+        sample_values:
+          - 054768d1-416a-4eb2-a7db-b3394d10e114
+          - a772c4f9-2865-4891-ae6b-38ab7d0271e1
+          - 023de86e-1f30-43e3-855e-bc0d8878614e
+        synonyms:
+          - destination_facility_code
+          - receiving_facility_id
+          - delivery_facility_id
+          - target_facility_id
+          - recipient_facility_id
+          - arrival_facility_id
+      - name: TRACKING_NUMBER
+        expr: TRACKING_NUMBER
+        data_type: VARCHAR(50)
+        description: Tracking number for the shipment
+        sample_values:
+          - AB591234WRWQJB
+          - AW169264UIIVLZ
+          - FK239524MBCOIU
+        synonyms:
+          - tracking_id
+          - shipment_id
+          - package_number
+          - shipping_id
+          - consignment_number
+          - waybill_number
+    time_dimensions:
+      - name: SHIP_DATE
+        expr: SHIP_DATE
+        data_type: DATE
+        description: Date the shipment was shipped
+        sample_values:
+          - '2025-02-07'
+          - '2024-12-06'
+          - '2025-02-17'
+        synonyms:
+          - shipment_date
+          - dispatch_date
+          - departure_date
+          - send_date
+          - shipping_date
+          - date_shipped
+      - name: EXPECTED_DELIVERY_DATE
+        expr: EXPECTED_DELIVERY_DATE
+        data_type: DATE
+        description: Expected delivery date of the shipment
+        sample_values:
+          - '2025-02-13'
+          - '2024-12-10'
+          - '2025-02-26'
+        synonyms:
+          - expected_arrival_date
+          - planned_delivery_date
+          - estimated_delivery_date
+          - scheduled_arrival_date
+          - anticipated_delivery_date
+          - projected_delivery_date
+      - name: ACTUAL_DELIVERY_DATE
+        expr: ACTUAL_DELIVERY_DATE
+        data_type: DATE
+        description: Actual delivery date of the shipment
+        sample_values:
+          - '2025-02-26'
+          - '2024-12-27'
+          - '2025-01-24'
+        synonyms:
+          - actual_shipment_delivery_date
+          - delivery_date_actual
+          - actual_arrival_date
+          - date_delivered
+          - actual_completion_date
+          - shipment_arrival_date
+    facts:
+      - name: SHIPPING_COST
+        expr: SHIPPING_COST
+        data_type: NUMBER(10,2)
+        description: Cost of shipping
+        sample_values:
+          - '458.73'
+          - '258.14'
+          - '158.96'
+        synonyms:
+          - shipping_expense
+          - freight_cost
+          - transportation_cost
+          - delivery_fee
+          - logistics_expense
+          - shipment_fee
+    primary_key:
+      columns:
+        - ORIGIN_FACILITY_ID
+        - DESTINATION_FACILITY_ID
+  - name: MFG_INVENTORY
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: MFG_INVENTORY
+    dimensions:
+      - name: MFG_PLANT_ID
+        expr: MFG_PLANT_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing mfg_plant
+        sample_values:
+          - '115'
+          - '105'
+          - '102'
+        synonyms:
+          - plant_code
+          - mfg_plant_nbr
+          - manufacturing_plant
+      - name: MATERIAL_ID
+        expr: MATERIAL_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing a raw_material table (if applicable)
+        sample_values:
+          - '101'
+          - '115'
+          - '102'
+        synonyms:
+          - raw_material_id
+          - material_code
+          - component_material_id
+          - inventory_material_id
+          - material_identifier
+      - name: COMPONENT_ID
+        expr: COMPONENT_ID
+        data_type: VARCHAR(36)
+        description: Foreign key referencing component (if applicable, otherwise NULL if material_id is populated)
+        sample_values:
+          - '117'
+          - '196'
+        synonyms:
+          - component_reference
+          - part_id
+          - assembly_id
+          - subassembly_id
+          - component_key
+    time_dimensions:
+      - name: LAST_UPDATED_TIMESTAMP
+        expr: LAST_UPDATED_TIMESTAMP
+        data_type: TIMESTAMP_NTZ(9)
+        description: Timestamp of the last inventory update
+        sample_values:
+          - '2025-01-29T09:27:34.70904Z'
+          - '2025-02-26T09:27:34.709067Z'
+          - '2025-02-25T09:27:34.70941Z'
+        synonyms:
+          - last_inventory_update
+          - last_update
+          - inventory_last_updated
+          - last_sync_timestamp
+          - last_refresh_date
+          - timestamp_last_updated
+          - last_inventory_sync
+    facts:
+      - name: QUANTITY_ON_HAND
+        expr: QUANTITY_ON_HAND
+        data_type: NUMBER(38,0)
+        description: Current quantity of the material/component on hand
+        sample_values:
+          - '229'
+          - '130'
+          - '254'
+        synonyms:
+          - current_stock
+          - stock_level
+          - inventory_level
+          - quantity_in_stock
+          - available_quantity
+          - on_hand_quantity
+          - current_inventory
+          - stock_on_hand
+      - name: QUANTITY_ON_ORDER
+        expr: QUANTITY_ON_ORDER
+        data_type: NUMBER(38,0)
+        description: Quantity of the material/component currently on order
+        sample_values:
+          - '209'
+          - '79'
+          - '156'
+        synonyms:
+          - ordered_quantity
+          - quantity_ordered
+          - items_on_order
+          - pending_arrivals
+          - stock_ordered
+          - quantity_pending_delivery
+      - name: SAFETY_STOCK_LEVEL
+        expr: SAFETY_STOCK_LEVEL
+        data_type: NUMBER(38,0)
+        description: Minimum inventory level to maintain
+        sample_values:
+          - '193'
+          - '55'
+          - '108'
+        synonyms:
+          - minimum_inventory_level
+          - min_stock_level
+          - inventory_buffer
+          - safety_stock_quantity
+          - minimum_stock_requirement
+          - reorder_point
+          - minimum_inventory_threshold
+      - name: MATERIAL_LEAD_TIME
+        expr: MATERIAL_LEAD_TIME
+        data_type: NUMBER(38,0)
+        description: How many days lead time to acquire this raw material
+        sample_values:
+          - '17'
+          - '23'
+          - '45'
+        synonyms:
+          - material_acquisition_time
+          - lead_time_for_material
+          - material_procurement_time
+          - days_to_acquire_material
+          - material_replenishment_time
+          - time_to_restock_material
+      - name: DAYS_FORWARD_COVERAGE
+        expr: DAYS_FORWARD_COVERAGE
+        data_type: NUMBER(38,0)
+        description: The number of days the current on-hand inventory of a raw material at a CMF facility can sustain production, assuming no further replenishment, based on expected demand of that material.
+        sample_values:
+          - '55'
+          - '44'
+          - '57'
+        synonyms:
+          - days_supply
+          - inventory_coverage
+          - forward_inventory_coverage
+          - inventory_sustainability
+          - days_of_inventory_on_hand
+          - inventory_runway
+          - production_sustainability_days
+      - name: LEAD_TIME_VARIABILITY
+        expr: LEAD_TIME_VARIABILITY
+        data_type: NUMBER(38,0)
+        description: The variability in material lead time, measured in days
+        sample_values:
+          - '6'
+          - '2'
+          - '5'
+        synonyms:
+          - lead_variance
+          - lead_variability
+      - expr: SAFETY_STOCK_LEVEL * 2
+        name: replenishment_point
+        data_type: NUMBER(38, 0)
+        description: When re-ordering a raw material or replenishing from a different CMF, this is the quantity needed to have on hand
+        synonyms:
+          - reorder_point
+          - reorder_level
+    filters:
+      - name: low_inventory
+        description: Identifies inventory items where the current quantity on hand is below the established safety stock level
+        expr: quantity_on_hand < safety_stock_level AND DAYS_FORWARD_COVERAGE <= MATERIAL_LEAD_TIME + LEAD_TIME_VARIABILITY
+        synonyms:
+          - stockout risk
+          - below safety stock
+          - insufficient inventory
+          - low stock
+          - inventory shortage
+          - replenishment needed
+      - expr: quantity_on_hand > 3 * safety_stock_level AND days_forward_coverage > 2 * material_lead_time
+        name: excess_inventory
+        description: Identifies raw materials with more than 3 times quantity on hand than the safety stock level and where future coverage is greater than the material's lead time
+        synonyms:
+          - excess inventory
+          - surplus inventory
+          - surplus stock
+    primary_key:
+      columns:
+        - MFG_PLANT_ID
+        - MATERIAL_ID
+  - name: RAW_MATERIAL
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: RAW_MATERIAL
+    dimensions:
+      - name: MATERIAL_ID
+        expr: MATERIAL_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for each raw material.
+        sample_values:
+          - 048caa8d-270b-4b66-aa7b-56fafecf213a
+          - ccab1663-a96c-4a73-8ebc-785b3d531455
+          - 851cb7ed-25ec-4e1a-aca2-f95f0404805e
+        synonyms:
+          - raw_material_code
+          - material_key
+          - raw_material_identifier
+          - material_unique_id
+          - raw_material_uuid
+      - name: MATERIAL_NAME
+        expr: MATERIAL_NAME
+        data_type: VARCHAR(16777216)
+        description: Names of raw materials used in the supply chain network.
+        sample_values:
+          - High-Purity Silicon Wafers
+          - Lithium Cobalt Oxide Powder
+          - Copper Wire (22 AWG)
+        synonyms:
+          - raw_material_name
+          - material_title
+          - item_name
+          - product_name
+          - material_label
+          - raw_material_title
+          - item_title
+      - name: MATERIAL_DESCRIPTION
+        expr: MATERIAL_DESCRIPTION
+        data_type: VARCHAR(16777216)
+        description: Detailed descriptions of raw materials.
+        sample_values:
+          - Ultra-pure silicon wafers for semiconductor manufacturing (AERO, IA)
+          - Cathode material for lithium-ion batteries (ESS, BA)
+          - High-conductivity copper wire, 22 gauge, for electrical applications (IA, BA, ESS)
+        synonyms:
+          - material_info
+          - raw_material_details
+          - material_specifications
+          - item_description
+          - product_description
+          - material_characteristics
+    facts:
+      - name: MATERIAL_COST
+        expr: MATERIAL_COST
+        data_type: NUMBER(10,2)
+        description: The cost of the raw material from the supplier
+        sample_values:
+          - '185.50'
+          - '25.75'
+          - '62.90'
+        synonyms:
+          - material_price
+          - raw_material_expense
+          - supplier_cost
+          - procurement_cost
+          - unit_cost
+          - material_expense
+          - purchase_price
+      - expr: (MATERIAL_COST * 0.3)
+        name: PLANT_TRANSPORT_COST
+        data_type: NUMBER(10,2)
+        description: Cost to transport this raw material between one MFG Plant to another, will be multiplied by transport_cost_surcharge specific to source and target MFG Plants
+        synonyms:
+          - transport_cost
+          - plant_transfer_cost
+          - transfer_cost
+    primary_key:
+      columns:
+        - MATERIAL_ID
+    metrics: []
+  - name: TRANSPORT_COST_SURCHARGE
+    base_table:
+      database: SUPPLY_CHAIN_NETWORK_OPTIMIZATION_DB
+      schema: ENTITIES
+      table: TRANSPORT_COST_SURCHARGE
+    dimensions:
+      - name: SOURCE_FACILITY_ID
+        expr: SOURCE_FACILITY_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the source MFG Plant with excess inventory that will transfer raw materials
+        sample_values:
+          - c5b64c31-f555-47a0-ba5d-e6d9fc8b72e6
+          - 16cb7d81-3e72-4329-b650-6d9712b3581c
+          - 8cde2513-8f00-4749-966c-b5b0f9d27659
+        synonyms:
+          - origin_facility_id
+          - origin_plant_id
+          - starting_plant_id
+          - initial_plant_id
+          - sending_plant_id
+      - name: DESTINATION_FACILITY_ID
+        expr: DESTINATION_FACILITY_ID
+        data_type: VARCHAR(36)
+        description: Unique identifier for the destination MFG Plant with low inventory that will receive raw materials
+        sample_values:
+          - 33863456-93b1-46cc-9abb-2bae01c21663
+          - 16cb7d81-3e72-4329-b650-6d9712b3581c
+          - 8cde2513-8f00-4749-966c-b5b0f9d27659
+        synonyms:
+          - receiving_plant_id
+          - target_facility_id
+          - recipient_plant_id
+          - delivery_plant_id
+    facts:
+      - name: TRANSPORT_COST_SURCHARGE
+        expr: TRANSPORT_COST_SURCHARGE
+        data_type: NUMBER(3,2)
+        description: Transport costs multiplier between these facilities depending on distance and difficulty of transport
+        sample_values:
+          - '1.40'
+          - '1.39'
+          - '1.37'
+        synonyms:
+          - transportation_fee
+          - shipping_cost_multiplier
+          - logistics_surcharge
+          - delivery_cost_factor
+          - freight_charge
+          - transfer_cost_rate
+    primary_key:
+      columns:
+        - SOURCE_FACILITY_ID
+relationships:
+  - name: MFG_PLANT_to_MFG_inventory
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: MFG_INVENTORY
+    relationship_columns:
+      - left_column: MFG_PLANT_ID
+        right_column: MFG_PLANT_ID
+    right_table: MFG_PLANT
+  - name: MFG_inventory_to_component
+    join_type: left_outer
+    relationship_type: many_to_one
+    right_table: COMPONENT
+    relationship_columns:
+      - right_column: COMPONENT_ID
+        left_column: COMPONENT_ID
+    left_table: MFG_INVENTORY
+  - name: fat_facility_to_fat_inventory
+    join_type: inner
+    relationship_type: many_to_one
+    right_table: FAT_FACILITY
+    relationship_columns:
+      - right_column: FAT_FACILITY_ID
+        left_column: FAT_FACILITY_ID
+    left_table: FAT_INVENTORY
+  - name: fat_inventory_to_component
+    relationship_type: many_to_one
+    join_type: left_outer
+    left_table: FAT_INVENTORY
+    relationship_columns:
+      - right_column: COMPONENT_ID
+        left_column: COMPONENT_ID
+    right_table: COMPONENT
+  - name: fat_inventory_to_product
+    relationship_type: many_to_one
+    join_type: left_outer
+    right_table: PRODUCT
+    relationship_columns:
+      - right_column: PRODUCT_ID
+        left_column: PRODUCT_ID
+    left_table: FAT_INVENTORY
+  - name: distributor_to_distributor_inventory
+    relationship_type: many_to_one
+    join_type: inner
+    right_table: DISTRIBUTOR
+    relationship_columns:
+      - right_column: DISTRIBUTOR_ID
+        left_column: DISTRIBUTOR_ID
+    left_table: DISTRIBUTOR_INVENTORY
+  - name: distributor_inventory_to_product
+    relationship_type: many_to_one
+    join_type: inner
+    left_table: PRODUCT
+    relationship_columns:
+      - right_column: PRODUCT_ID
+        left_column: PRODUCT_ID
+    right_table: DISTRIBUTOR_INVENTORY
+  - name: orders_to_customer
+    relationship_type: many_to_one
+    join_type: left_outer
+    left_table: ORDERS
+    relationship_columns:
+      - left_column: ORDER_ID
+        right_column: CUSTOMER_ID
+    right_table: CUSTOMER
+  - name: orders_to_distributor
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: ORDERS
+    relationship_columns:
+      - left_column: DISTRIBUTOR_ID
+        right_column: DISTRIBUTOR_ID
+    right_table: DISTRIBUTOR
+  - name: orders_to_product
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: ORDERS
+    relationship_columns:
+      - left_column: PRODUCT_ID
+        right_column: PRODUCT_ID
+    right_table: PRODUCT
+  - name: shipment_to_origin_MFG_PLANT
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: SHIPMENT
+    relationship_columns:
+      - right_column: MFG_PLANT_ID
+        left_column: ORIGIN_FACILITY_ID
+    right_table: MFG_PLANT
+  - name: shipment_to_origin_fat_facility
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: SHIPMENT
+    relationship_columns:
+      - left_column: ORIGIN_FACILITY_ID
+        right_column: FAT_FACILITY_ID
+    right_table: FAT_FACILITY
+  - name: shipment_to_destination_fat_facility
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: SHIPMENT
+    relationship_columns:
+      - left_column: DESTINATION_FACILITY_ID
+        right_column: FAT_FACILITY_ID
+    right_table: FAT_FACILITY
+  - name: shipment_to_destination_distributor
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: SHIPMENT
+    relationship_columns:
+      - left_column: DESTINATION_FACILITY_ID
+        right_column: DISTRIBUTOR_ID
+    right_table: DISTRIBUTOR
+  - name: shipment_to_destination_customer
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: SHIPMENT
+    relationship_columns:
+      - left_column: DESTINATION_FACILITY_ID
+        right_column: CUSTOMER_ID
+    right_table: CUSTOMER
+  - name: MFG_inventory_to_raw_material
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: RAW_MATERIAL
+    relationship_columns:
+      - left_column: MATERIAL_ID
+        right_column: MATERIAL_ID
+    right_table: MFG_INVENTORY
+  - name: MFG_PLANT_to_transport_cost_surcharge_source
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: MFG_PLANT
+    relationship_columns:
+      - left_column: MFG_PLANT_ID
+        right_column: SOURCE_FACILITY_ID
+    right_table: TRANSPORT_COST_SURCHARGE
+  - name: MFG_PLANT_to_transport_cost_surcharge_destination
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: MFG_PLANT
+    relationship_columns:
+      - left_column: MFG_PLANT_ID
+        right_column: DESTINATION_FACILITY_ID
+    right_table: TRANSPORT_COST_SURCHARGE
+  - name: MFG_inventory_to_transport_cost_surcharge_source
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: MFG_INVENTORY
+    relationship_columns:
+      - left_column: MFG_PLANT_ID
+        right_column: SOURCE_FACILITY_ID
+    right_table: TRANSPORT_COST_SURCHARGE
+  - name: MFG_inventory_to_transport_cost_surcharge_destination
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: MFG_INVENTORY
+    relationship_columns:
+      - left_column: MFG_PLANT_ID
+        right_column: DESTINATION_FACILITY_ID
+    right_table: TRANSPORT_COST_SURCHARGE
+verified_queries:
+  - name: Active MFG Plants
+    question: How many active MFG plants do we have?
+    use_as_onboarding_question: true
+    sql: SELECT COUNT(*) AS active_plant_count FROM MFG_PLANT WHERE is_active = TRUE
+    verified_by: Reid Lewis
+    verified_at: 1740767188
+  - name: AERO scheduled orders
+    question: How many orders are scheduled for the AERO business line?
+    use_as_onboarding_question: true
+    sql: SELECT COUNT(*) AS aero_order_count FROM orders AS o JOIN product AS p ON o.product_id = p.product_id WHERE p.business_line = 'AERO'
+    verified_by: Reid Lewis
+    verified_at: 1740767472
+  - name: Finished Goods Quantity
+    question: What's the total quantity of finished goods we have in our FAT facilities?
+    use_as_onboarding_question: true
+    sql: SELECT SUM(quantity_on_hand) AS total_finished_goods_quantity FROM fat_inventory WHERE NOT product_id IS NULL
+    verified_by: Reid Lewis
+    verified_at: 1740767486
+  - name: Reorder Check
+    question: Which distributors need to reorder Flight Control Systems soon?
+    use_as_onboarding_question: true
+    sql: SELECT d.distributor_name FROM distributor_inventory AS di JOIN distributor AS d ON di.distributor_id = d.distributor_id JOIN product AS p ON di.product_id = p.product_id WHERE p.product_name = 'Flight Control System' AND di.reorder_point < 20
+    verified_by: Reid Lewis
+    verified_at: 1740767506
+  - name: L30D Orders
+    question: How many orders did we receive in the last month?
+    use_as_onboarding_question: true
+    sql: SELECT COUNT(*) AS order_count_last_30_days FROM orders WHERE order_date >= DATEADD(DAY, -30, CURRENT_DATE)
+    verified_by: Reid Lewis
+    verified_at: 1740767520
+  - name: MFG Plant Safety Stock Check
+    question: Which raw materials at our Manufacturing Plants are running low on inventory?
+    use_as_onboarding_question: true
+    sql: SELECT cf.mfg_plant_name, m.material_name, ci.quantity_on_hand, ci.safety_stock_level, ci.days_forward_coverage, ci.material_lead_time, ci.lead_time_variability FROM mfg_inventory AS ci JOIN MFG_PLANT AS cf ON ci.MFG_PLANT_ID = cf.MFG_PLANT_ID JOIN raw_material AS m ON ci.material_id = m.material_id WHERE quantity_on_hand < safety_stock_level AND DAYS_FORWARD_COVERAGE <= MATERIAL_LEAD_TIME + LEAD_TIME_VARIABILITY
+    verified_by: Reid Lewis
+    verified_at: 1741189275
+  - name: Top Customers
+    question: Who are our top 5 customers?
+    use_as_onboarding_question: true
+    sql: SELECT c.customer_name, SUM(o.total_price) AS total_order_value FROM orders AS o JOIN customer AS c ON o.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_order_value DESC LIMIT 5
+    verified_by: Reid Lewis
+    verified_at: 1740767647
+  - name: Late Shipments Last Quarter
+    question: How many of our shipments were late last quarter?
+    use_as_onboarding_question: true
+    sql: SELECT COUNT(*) AS late_shipment_count FROM shipment WHERE actual_delivery_date > expected_delivery_date AND ship_date >= DATE_TRUNC('QUARTER', CURRENT_DATE) - INTERVAL '3 MONTHS' AND ship_date < DATE_TRUNC('QUARTER', CURRENT_DATE)
+    verified_by: Reid Lewis
+    verified_at: 1740767671
+  - name: BMS Inventory
+    question: What's the average inventory of Building Management Systems across our distributors?
+    use_as_onboarding_question: true
+    sql: SELECT d.distributor_name, AVG(di.quantity_on_hand) AS average_inventory FROM distributor_inventory AS di JOIN distributor AS d ON di.distributor_id = d.distributor_id JOIN product AS p ON di.product_id = p.product_id WHERE p.product_name = 'Building Management System' GROUP BY d.distributor_name
+    verified_by: Reid Lewis
+    verified_at: 1740767692
+  - name: Stockout Replenishment Transfer
+    question: For Manufacturing plants with low inventory of a raw material, compare the cost of replenishing from a supplier vs transferring from another plant with excess inventory
+    use_as_onboarding_question: false
+    sql: WITH low_inventory AS (SELECT l.mfg_plant_id AS low_plant_id, mp.mfg_plant_name AS low_plant_name, l.material_id, rm.material_name, l.quantity_on_hand AS low_qty, l.replenishment_point, (l.replenishment_point - l.quantity_on_hand) AS units_needed, rm.material_cost, rm.plant_transport_cost FROM mfg_inventory AS l JOIN mfg_plant AS mp ON l.mfg_plant_id = mp.mfg_plant_id JOIN raw_material AS rm ON l.material_id = rm.material_id WHERE l.quantity_on_hand < l.safety_stock_level AND l.days_forward_coverage <= l.material_lead_time + l.lead_time_variability), excess_inventory AS (SELECT e.mfg_plant_id AS excess_plant_id, mp.mfg_plant_name AS excess_plant_name, e.material_id, e.quantity_on_hand AS excess_qty, e.replenishment_point AS excess_replenishment_point, (e.quantity_on_hand - e.replenishment_point) AS available_to_transfer FROM mfg_inventory AS e JOIN mfg_plant AS mp ON e.mfg_plant_id = mp.mfg_plant_id WHERE e.quantity_on_hand > 3 * e.safety_stock_level AND e.days_forward_coverage > 2 * e.material_lead_time) SELECT l.low_plant_name, l.material_name, l.units_needed, l.material_cost * l.units_needed AS supplier_purchase_cost, e.excess_plant_name, LEAST(l.units_needed, e.available_to_transfer) AS transferrable_units, l.plant_transport_cost * LEAST(l.units_needed, e.available_to_transfer) * tcs.transport_cost_surcharge AS transfer_cost FROM low_inventory AS l LEFT JOIN excess_inventory AS e ON l.material_id = e.material_id LEFT JOIN transport_cost_surcharge AS tcs ON e.excess_plant_id = tcs.source_facility_id AND l.low_plant_id = tcs.destination_facility_id ORDER BY l.low_plant_name, l.material_name /* Generated by Cortex Analyst */
+    verified_by: Reid Lewis
+    verified_at: 1741191526
+custom_instructions: |-
+  Unless explicitly specified otherwise, assume users are asking about current data, not historical data.  For example, 'inventory levels' should refer to the current `quantity_on_hand`, not past inventory.
+  The 'business_line' column is crucial.  Many queries will implicitly or explicitly refer to one of the four business lines: AERO (Aerospace), IA (Industrial Automation), BA (Building Automation), and ESS (Energy and Sustainability Services).  Pay close attention to this.
+  If a user mentions terms like 'airplane,' 'avionics,' or 'flight,' they are likely referring to the AERO business line.  Terms like 'factory,' 'PLC,' or 'process control' likely refer to IA.  'Thermostat,' 'HVAC,' or 'building management' usually refer to BA. 'Energy,' 'solar,' or 'sustainability' generally refer to ESS.
+  There are two main types of facilities: MFG Plants (Manufacturing Plants) and FAT (Final Assembly and Test Facilities). MFG Plants produce components, and FAT facilities assemble finished products. MFG Plants ship components to FAT facilities in order to produce finished products. Understand the difference and how they relate.
+  Distinguish between inventory at MFG Plants (which can include both raw materials and components) and inventory at FAT facilities (which can include both components and finished products).  Inventory at distributor locations is always finished goods.
+  When a user asks about 'inventory,' consider the context to determine whether they mean raw materials, components, or finished products. If unspecified, and in a MFG Plants, assume they mean both raw materials and components. At FAT facilities, assume they want finished goods unless stated otherwise.
+  Orders can be placed by either customers (direct sales) or distributors.  Shipments can originate from either MFG Plants or FAT facilities and can be delivered to FAT facilities, distributors, or customers.
+  Understand that MFG Plants *only* ship to FAT facilities. FAT facilities ship to distributors and customers
+  Users will ask about transferring raw materials from one MFG Plant with excess inventory to another with low inventory. You should show them how many units the stockout risk MFG Plant would need to receive to be at the replenishment_level, and show how much that would cost to buy from the supplier (using material_cost multiplied by number of units) vs. how much it would cost to transfer from another MFG Plant (using the plant_transfer_cost multiplied by number of units multiplied by the relevant transport_cost_surcharge). The MFG Plant with excess inventory can draw down to its own replenishment_level for that material.
