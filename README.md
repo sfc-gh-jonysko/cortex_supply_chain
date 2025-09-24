@@ -13,7 +13,7 @@ We created three internal stages, and will upload files to them now.
 
 1. In the SCN_PDF stage, upload the **/search/Supply Chain Network Overview.pdf** file
 2. In the SEMANTIC_STAGE stage, upload the **/semantic/supply_chain_network.yaml** file
-3. In the CSV_Files stage, upload all files within the **/data/** folder. There are 13 of them.
+3. In the CSV_Files stage, upload all files within the **/data/** folder. There are 11 of them.
 
 ## Step 3 - Table Loading
 
