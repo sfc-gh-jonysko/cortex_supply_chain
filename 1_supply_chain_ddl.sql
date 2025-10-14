@@ -1,7 +1,7 @@
 /* set up roles */
 use role accountadmin;
 
-create warehouse if not exists scno_wh WAREHOUSE_SIZE=SMALL comment='{"origin":"sf_sit","name":"scno","version":{"major":1, "minor":0},"attributes":{"component":"scno"}}';
+create warehouse if not exists scno_wh WAREHOUSE_SIZE=SMALL;
 
 /* create role and add permissions required by role for installation of framework */
 create role if not exists scno_role;
@@ -16,14 +16,14 @@ grant database role snowflake.cortex_user to role scno_role;
 grant role scno_role to role sysadmin;
 grant usage, operate on warehouse scno_wh to role scno_role;
 
-/* set up provider side objects */
+/* set up objects */
 use role scno_role;
 
 use warehouse scno_wh;
 
 /* create database */
-create or replace database supply_chain_network_optimization_db comment='{"origin":"sf_sit","name":"scno","version":{"major":1, "minor":0},"attributes":{"component":"scno"}}';
-create or replace schema supply_chain_network_optimization_db.entities comment='{"origin":"sf_sit","name":"scno","version":{"major":1, "minor":0},"attributes":{"component":"scno"}}';
+create or replace database supply_chain_network_optimization_db;
+create or replace schema supply_chain_network_optimization_db.entities;
 
 drop schema if exists supply_chain_network_optimization_db.public;
 
